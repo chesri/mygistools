@@ -1,0 +1,7 @@
+create or replace
+TRIGGER schema.name_of_trigger
+BEFORE INSERT OR UPDATE ON schema.name_of_table
+FOR EACH ROW
+BEGIN
+    :new.modified_on := SYSTIMESTAMP;
+END;

@@ -11,7 +11,8 @@
 
 import re, os, sys
 
-root_folder = r'C:\OneDrive - Esri\DS_Workspace\SOFPREP\from_customer\SOFPREP_01-03-2019'
+root_folder = r'C:\My Toolboxes\GitHub\mygistools\dependencies'
+output_folder = r'C:\Temp\SOFPREP_FS'
 
 for root, dirs, files in os.walk(root_folder):
     for f in files:
@@ -25,12 +26,8 @@ for root, dirs, files in os.walk(root_folder):
             lol = list(line.strip() for line in open(the_file, 'rb'))
 
             breadcrumb = {}
-            rIndex = 0
-            for line in lol:
-                if rIndex == 122:
-                    pass
-                else:
-                    pass
+
+            for rIndex,line in enumerate(lol):
 
                 the_string = re.sub('[:|]', '', line)
                 z = re.match("(^-+)(.*)",the_string)
@@ -53,7 +50,7 @@ for root, dirs, files in os.walk(root_folder):
                     else:
                         path.append(breadcrumb[1])
 
-                    folder = os.path.join(r'C:\Temp\SOFPREP_FS',parent)
+                    folder = os.path.join(output_folder,parent)
 
                     for p in path:
 
@@ -66,8 +63,10 @@ for root, dirs, files in os.walk(root_folder):
                     if not os.path.exists(os.path.dirname(folder)):
                         os.mkdir(os.path.dirname(folder))
                     if not os.path.exists(folder):
-                        print("line {}: {}".format(rIndex,folder))
+
                         os.mkdir(folder)
-                    rIndex += 1
+
+                    print("{}: {}".format(rIndex,folder))
+
 
 
